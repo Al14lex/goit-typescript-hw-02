@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import { getImg } from "./images-api";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn"
-import Loader from "./components/Loader/Loader";
-import ImageModal from "./components/ImageModal/ImageModal";
+import { useState, useEffect, FC } from "react";
+import SearchBar from "../SearchBar/SearchBar";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import { getImg, Photo } from "../../images-api";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn"
+import Loader from "../Loader/Loader";
+import ImageModal from "../ImageModal/ImageModal";
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-
-export default function App() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-   const [selectedImage, setSelectedImage] = useState(null); 
+export default function App () {
+  const [images, setImages] = useState<Photo[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+   const [selectedImage, setSelectedImage] = useState<string | null>(null); 
  
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -26,10 +25,10 @@ export default function App() {
     async function fetchImgs() {
       try {
         setLoading(true);
-        setError(false);
+        setError(null);
         const data = await getImg(searchQuery, page);
          setImages(prevImages => [...prevImages, ...data]);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -40,7 +39,7 @@ export default function App() {
   },  [page, searchQuery]);
   
     
-  const handleSearch = async (input) => {
+  const handleSearch = async (input: string) => {
     setSearchQuery(input);
     setPage(1);
     setImages([]);
@@ -50,7 +49,7 @@ export default function App() {
     setPage(page + 1);
   };
 
-  const handleImageClick = (imageUrl) => {
+  const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl); 
   };
 

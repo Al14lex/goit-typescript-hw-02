@@ -1,6 +1,6 @@
 import { ThreeDots } from 'react-loader-spinner';
 
-const Loader = ({ loading }) => {
+const Loader = ({ loading }: {loading: boolean }) => {
   return (
     loading && <ThreeDots
       visible={true}

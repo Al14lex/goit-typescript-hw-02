@@ -1,16 +1,20 @@
 import toast, { Toaster } from 'react-hot-toast';
-export default function SearchBar({ onSubmit }) {
+import { FormEvent } from 'react';
 
+interface PropsSearchBar{
+  onSubmit: (input: string) => void;
+}
+
+export default function SearchBar({ onSubmit }: PropsSearchBar) {
   const notify = () => toast.error("Oops. You forgot to fill in the inbox");
 
-	const handleSubmit = (evt, ) => {
-        evt.preventDefault();
-        
-    const form = evt.target;
-        const input = form.elements.input.value;
-        console.log(input);
-        
-    if (form.elements.input.value.trim() === "") {
+	const handleSubmit = (evt: FormEvent<HTMLFormElement> ) => {
+    evt.preventDefault(); 
+    
+    const form = evt.currentTarget;
+    const input = (form.elements.namedItem("input") as HTMLInputElement).value;
+    
+    if (input.trim() === "") {
       notify();    
 			return;
 		}
@@ -18,7 +22,6 @@ export default function SearchBar({ onSubmit }) {
     form.reset();
   };
 
-  
   return (
   <>
       <header>

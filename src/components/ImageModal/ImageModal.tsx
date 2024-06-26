@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 const customStyles = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)' // Прозоро темно-сірий фон
+    backgroundColor: 'rgba(0, 0, 0, 0.7)' 
   },
   content: {
     top: '50%',
@@ -19,10 +19,16 @@ const customStyles = {
   },
 };
 
-const ImageModal = ({ isOpen, onClose, imageUrl }) => {
+type PropsModal = {
+  isOpen: boolean;
+  onClose: () => void;
+  imageUrl: string;
+};
+
+const ImageModal = ({ isOpen, onClose, imageUrl }: PropsModal) => {
   useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.keyCode === 27) {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
         onClose();
       }
     };
