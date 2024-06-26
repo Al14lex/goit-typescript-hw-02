@@ -15,7 +15,7 @@ export default function App () {
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-   const [selectedImage, setSelectedImage] = useState<string | null>(null); 
+  const [selectedImage, setSelectedImage] = useState<string | null>(null); 
  
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -37,22 +37,18 @@ export default function App () {
 
     fetchImgs();
   },  [page, searchQuery]);
-  
-    
+   
   const handleSearch = async (input: string) => {
     setSearchQuery(input);
     setPage(1);
     setImages([]);
-  }
-   
+  } 
   const handleLoadMore = async () => {
     setPage(page + 1);
   };
-
   const handleImageClick = (imageUrl: string) => {
-    setSelectedImage(imageUrl); 
+    setSelectedImage(imageUrl);
   };
-
   const handleCloseModal = () => {
     setSelectedImage(null);
   }
